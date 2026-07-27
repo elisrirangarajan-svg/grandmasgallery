@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Grandma's Happy Corner</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=Nunito:wght@500;700;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+  <main class="page-shell">
+    <header>
+      <div class="tiny-stars">✦ ✦ ✦</div>
+      <h1>Grandma's Gallery</h1>
+      <p class="subtitle">Choose something delightful.</p>
+    </header>
+
+    <p class="daily-note">
+      Choose one choice each day. Once chosen, the other choices wait until tomorrow.
+      <span id="testModeNote" class="hidden">Testing mode is on, so the daily lock is disabled.</span>
+    </p>
+    <section class="menu" id="menu">
+      <button class="choice joke" data-view="jokeView">
+        <span class="icon">🥯</span>
+        <span>Are you Jewish?</span>
+        <small>Clean, cozy, and a little schmaltzy</small>
+      </button>
+
+      <button class="choice compliment" data-view="complimentView">
+        <span class="icon">💐</span>
+        <span>Where’s the Compliment in That?</span>
+        <small>There it is!</small>
+      </button>
+
+      <button class="choice delete" data-view="deleteView">
+        <span class="icon">🗑️</span>
+        <span>Delete. Delete. Delete.</span>
+        <small>Send the past into oblivion</small>
+      </button>
+
+      <button class="choice quote" data-view="quoteView">
+        <span class="icon">☀️</span>
+        <span>Daily Inspirational Quote</span>
+        <small>A little Lynn Light-Up!</small>
+      </button>
+    </section>
+
+    <section class="view hidden" id="jokeView">
+      <div class="card">
+        <div class="big-icon">🥯</div>
+        <p class="result" id="jokeText">Ready for a joke?</p>
+        <p class="punchline hidden" id="punchlineText"></p>
+        <button class="action" id="newJoke">Tell me one</button>
+        <button class="action reveal hidden" id="showPunchline">Show punch line</button>
+        <button class="back">← Back to choices</button>
+      </div>
+    </section>
+
+    <section class="view hidden" id="complimentView">
+      <div class="card">
+        <div class="big-icon">💐</div>
+        <p class="result" id="complimentText">A compliment is waiting for you.</p>
+        <button class="action" id="newCompliment">Give me a compliment</button>
+        <button class="back">← Back to choices</button>
+      </div>
+    </section>
+
+    <section class="view hidden" id="deleteView">
+      <div class="card">
+        <div class="big-icon">🗑️</div>
+        <h2>Delete Delete Delete</h2>
+        <button class="action danger" id="fakeDeleteButton">DELETE DELETE DELETE</button>
+
+        <div class="memory-reveal hidden" id="memoryReveal">
+          <h2>Just joking!</h2>
+          <p class="memory-message">The past is the past, and there is no reason to delete it.</p>
+          <p class="memory-message">Here is a moment from the past:</p>
+          <img class="memory-photo hidden" id="memoryPhoto" alt="A family memory">
+          <p class="memory-empty hidden" id="memoryEmpty">
+            No photos were found in the Google Drive folder. Check the Apps Script deployment and folder contents.
+          </p>
+        </div>
+
+        <button class="back">← Back to choices</button>
+      </div>
+    </section>
+
+    <section class="view hidden" id="quoteView">
+      <div class="card">
+        <div class="big-icon">☀️</div>
+        <blockquote id="quoteText">“A little grandma guidance is on its way.”</blockquote>
+        <p class="author" id="quoteAuthor"></p>
+        <button class="action" id="newQuote">Show today’s quote</button>
+        <button class="back">← Back to choices</button>
+      </div>
+    </section>
+  </main>
+
+  <div class="confetti" id="confetti" aria-hidden="true"></div>
+  <script>
+    window.GRANDMA_APP = { testMode: {{ test_mode|tojson }} };
+  </script>
+  <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>
